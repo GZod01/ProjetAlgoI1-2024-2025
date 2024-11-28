@@ -1,34 +1,19 @@
 //  gcc .\main.c
 //  .\a.exe
-#ifdef _WIN32
-#include <conio.h>
-#else
-#include <stdio.h>
 #define clrscr() printf("\e[1;1H\e[2J")
-#endif
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
-#include <ctype.h>
-#include <time.h>
 #include <unistd.h>
 
 
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+#define ANSI_COLOR_RED     "\e[31m"
+#define ANSI_COLOR_GREEN   "\e[32m"
+#define ANSI_COLOR_RESET   "\e[0m"
 
-int initial(int t[6][2]){
+void initial(int t[6][2]){
     int i;
     for ( i = 0; i < 6; i++){
         t[i][0]=4;
-    }
-    for ( i = 0; i < 6; i++){
         t[i][1]=4;
     }
 }
@@ -43,57 +28,25 @@ void intVersPosition(int x, int c[2]){
     }
 }
 
-char* afficherValeur(int x, int y, int t[6][2], int pos_dep, int pos2){
-    // char couleur[10]="\x1b[0m";
-    printf("cool%i,%i",x,y);
-    char colortogo='d';
-    int coordpos[2],coordpos2[2];
-    if(pos_dep!=-1){
-        intVersPosition(pos_dep,coordpos);
+void afficherValeur(int pos, int t[6][2], int pos_dep, int pos2){
+    int coordpos[2],x,y;
+    intVersPosition(pos,coordpos);
+    x=coordpos[0];
+    y=coordpos[1];
+    if(pos_dep!=-1 && pos==pos_dep){
+        printf(ANSI_COLOR_GREEN " %i",t[x][y]);
+        return;
     }
-    if(pos2!=-1){
-        intVersPosition(pos2,coordpos2);
+    else if(pos2!=-1 && pos==pos2){
+        printf( ANSI_COLOR_RED " %i"/*(x=%i,y=%i)(p=%i,pdep=%i,p2=%i)"*/,t[x][y]/*,x,y,pos,pos_dep,pos2*/);
+        return;
+    }else{
+        printf(ANSI_COLOR_RESET " %i"/*(x=%i,y=%i)(p=%i,pdep=%i,p2=%i)"*/,t[x][y]/*,x,y,pos,pos_dep,pos2*/);
+        return;
     }
-    if(pos_dep!=-1 && coordpos[0]==x && coordpos[1]==y){
-        // printf("cool%i,%i",x,y);
-        colortogo='r';
-    }
-    else if(pos2!=-1 && coordpos2[0]==x && coordpos2[1]==y){
-        // printf("cool2%i,%i",x,y);
-        colortogo='g';
-    }
-    // switch (colortogo){
-    //     case 'r':
-    //         strcpy(couleur,"\x1b[31m");
-    //         break;
-    //     case 'g':
-    //         strcpy(couleur,"\x1b[32m");
-    //         break;
-    //     case 'y':
-    //         strcpy(couleur,"\x1b[33m");
-    //         break;
-    //     default:
-    //         strcpy(couleur,"\x1b[0m");
-    //         break;
-    // }
-    static char returnval[100];
-    if(colortogo=='r'){
-        sprintf(returnval,ANSI_COLOR_RED "%c%i(%i,%i)(%i,%i)\t",colortogo,t[x][y],x,y,pos_dep,pos2);
-    }
-    else if (colortogo=='g'){
-        sprintf(returnval, ANSI_COLOR_GREEN "%c%i(%i,%i)(%i,%i)\t",colortogo,t[x][y],x,y,pos_dep,pos2);
-    }
-    else{
-        sprintf(returnval, ANSI_COLOR_RESET "%c%i(%i,%i)(%i,%i)\t",colortogo,t[x][y],x,y,pos_dep,pos2);
-    }
-    {
-        /* code */
-    }
-    
-    return returnval;
 }
 
-#define aV(x,y) afficherValeur(x,y,t,pos1,pos2)
+#define aV(p) afficherValeur(p,t,pos1,pos2)
 
 
 void superAfficherL(int t[6][2], int pos1, int pos2){
@@ -101,8 +54,10 @@ void superAfficherL(int t[6][2], int pos1, int pos2){
     // printf("%i,%i\n",pos1,pos2);
     printf("-------------\n");
     printf(" f e d c b a\n");
-    printf(" %s %s %s %s %s %s\n" ANSI_COLOR_RESET, aV(0,0),aV(1,0),aV(2,0),aV(3,0),aV(4,0),aV(5,0));
-    printf(" %s %s %s %s %s %s\n" ANSI_COLOR_RESET, aV(0,1),aV(1,1),aV(2,1),aV(3,1),aV(4,1),aV(5,1));
+    aV(12);aV(11);aV(10);aV(9);aV(8);aV(7);
+    printf(ANSI_COLOR_RESET "\n");
+    aV(1);aV(2);aV(3);aV(4);aV(5);aV(6);
+    printf(ANSI_COLOR_RESET "\n");
     printf(" A B C D E F\n");
     printf("-------------\n");
 }
@@ -139,8 +94,8 @@ void graine(int t[6][2], int position_depart){
         t[coord[0]][coord[1]]++;
         t[coord_depart[0]][coord_depart[1]]--;
         fflush(stdout);
-        sleep(1);
         superAfficherL(t,position_depart,position);
+        sleep(1);
         nombre--;
 
     }
