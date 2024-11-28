@@ -38,10 +38,10 @@ void afficherValeur(int pos, int t[6][2], int pos_dep, int pos2){
         return;
     }
     else if(pos2!=-1 && pos==pos2){
-        printf( ANSI_COLOR_RED " %i"/*(x=%i,y=%i)(p=%i,pdep=%i,p2=%i)"*/,t[x][y]/*,x,y,pos,pos_dep,pos2*/);
+        printf( ANSI_COLOR_RED " %i",t[x][y]);
         return;
     }else{
-        printf(ANSI_COLOR_RESET " %i"/*(x=%i,y=%i)(p=%i,pdep=%i,p2=%i)"*/,t[x][y]/*,x,y,pos,pos_dep,pos2*/);
+        printf(ANSI_COLOR_RESET " %i",t[x][y]);
         return;
     }
 }
