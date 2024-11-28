@@ -34,14 +34,14 @@ void afficherValeur(int pos, int t[6][2], int pos_dep, int pos2){
     x=coordpos[0];
     y=coordpos[1];
     if(pos_dep!=-1 && pos==pos_dep){
-        printf(ANSI_COLOR_GREEN " %i",t[x][y]);
+        printf(ANSI_COLOR_GREEN "\t%i",t[x][y]);
         return;
     }
     else if(pos2!=-1 && pos==pos2){
-        printf( ANSI_COLOR_RED " %i",t[x][y]);
+        printf( ANSI_COLOR_RED "\t%i",t[x][y]);
         return;
     }else{
-        printf(ANSI_COLOR_RESET " %i",t[x][y]);
+        printf(ANSI_COLOR_RESET "\t%i",t[x][y]);
         return;
     }
 }
@@ -53,12 +53,12 @@ void superAfficherL(int t[6][2], int pos1, int pos2){
     clrscr();
     // printf("%i,%i\n",pos1,pos2);
     printf("-------------\n");
-    printf(" f e d c b a\n");
+    printf("\tf\te\td\tc\tb\ta\n");
     aV(12);aV(11);aV(10);aV(9);aV(8);aV(7);
     printf(ANSI_COLOR_RESET "\n");
     aV(1);aV(2);aV(3);aV(4);aV(5);aV(6);
     printf(ANSI_COLOR_RESET "\n");
-    printf(" A B C D E F\n");
+    printf("\tA\tB\tC\tD\tE\tF\n");
     printf("-------------\n");
 }
 #define afficher(t) superAfficherL(t,-1,-1)
