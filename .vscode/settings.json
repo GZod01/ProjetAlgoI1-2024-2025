@@ -60,6 +60,8 @@
     "*.gzodp": "php",
     "stdlib.h": "c",
     "stdbool.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "string.h": "c",
+    "unistd.h": "c"
   }
 }
