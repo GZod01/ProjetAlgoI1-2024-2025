@@ -8,9 +8,9 @@ Créer un jeu d'awalé en C.
 - [Compte rendu 1](./compte_rendu_1.md)
 
 ## ToDo
--[x] Jeu à 2 joueurs
--[x] Affichage du plateau
--[x] Déplacement des graines
--[ ] Vol de graines
--[ ] Fin de partie
--[ ] IA
+- [x] Jeu à 2 joueurs
+- [x] Affichage du plateau
+- [x] Déplacement des graines
+- [ ] Vol de graines
+- [ ] Fin de partie
+- [ ] IA
